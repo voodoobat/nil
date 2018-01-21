@@ -11,6 +11,7 @@ const merge = require('merge-stream')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
+const argv = require('yargs').argv
 
 
 // tasks: ejs
@@ -80,8 +81,6 @@ gulp.task('js', () => {
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
-
-const argv = require('yargs').argv
 
 if (argv.w) (() => {
   const tasks = argv._
