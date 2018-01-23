@@ -60,6 +60,7 @@ gulp.task('scss', () => {
 const uglify = require('gulp-uglify')
 const browserify = require('gulp-browserify')
 const include = require('gulp-include')
+const concat = require('gulp-concat')
 
 gulp.task('js', () => {
   merge(
@@ -72,8 +73,8 @@ gulp.task('js', () => {
       .pipe(maps.init())
       .pipe(browserify({ transform: ['babelify'] }))
   )
-    .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
+    .pipe(concat('theme.min.js'))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
 })
