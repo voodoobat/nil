@@ -45,7 +45,7 @@ gulp.task('scss', () => {
     .pipe(postcss([
       require('postcss-short')(),
       require('postcss-assets')({ basePath: 'static/assets/images' }),
-      require('autoprefixer')(['last 3 version']),
+      require('autoprefixer')(['last 3 version', 'ie >= 11']),
       require('cssnano')
     ]))
     .pipe(rename({ suffix: '.min' }))
