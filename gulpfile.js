@@ -11,6 +11,7 @@ const merge = require('merge-stream')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
+const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
 
@@ -36,6 +37,7 @@ gulp.task('ejs', () => {
 
 const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
+const csso = require('gulp-csso')
 
 gulp.task('scss', () => {
   gulp.src('src/scss/*.scss')
@@ -45,9 +47,9 @@ gulp.task('scss', () => {
     .pipe(postcss([
       require('postcss-short')(),
       require('postcss-assets')({ basePath: 'static/assets/images' }),
-      require('autoprefixer')(['last 3 version', 'ie >= 11']),
-      require('cssnano')
+      require('autoprefixer')(['last 3 version', 'ie >= 11'])
     ]))
+    .pipe(gulpif(!argv.dev, csso()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
@@ -73,7 +75,7 @@ gulp.task('js', () => {
       .pipe(maps.init())
       .pipe(browserify({ transform: ['babelify'] }))
   )
-    .pipe(uglify())
+    .pipe(gulpif(!argv.dev, uglify()))
     .pipe(concat('theme.min.js'))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
