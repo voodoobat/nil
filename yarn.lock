@@ -91,6 +91,12 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+ansi-colors@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-1.0.1.tgz#e94c6c306005af8b482240241e2f3dea4b855ff3"
+  dependencies:
+    ansi-wrap "^0.1.0"
+
 ansi-cyan@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ansi-cyan/-/ansi-cyan-0.1.1.tgz#538ae528af8982f28ae30d86f2f17456d2609873"
@@ -135,7 +141,7 @@ ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
-ansi-wrap@0.1.0:
+ansi-wrap@0.1.0, ansi-wrap@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/ansi-wrap/-/ansi-wrap-0.1.0.tgz#a82250ddb0015e9a27ca82e82ea603bbfa45efaf"
 
@@ -1540,6 +1546,10 @@ deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
 
+deepmerge@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.0.1.tgz#25c1c24f110fb914f80001b925264dd77f3f4312"
+
 defaults@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/defaults/-/defaults-1.0.3.tgz#c656051e9817d9ff08ed881477f3fe4019f3ef7d"
@@ -1631,9 +1641,37 @@ dev-ip@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dev-ip/-/dev-ip-1.0.1.tgz#a76a3ed1855be7a012bb8ac16cb80f3c00dc28f0"
 
+dom-serializer@0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.1.0.tgz#073c697546ce0780ce23be4a28e293e40bc30c82"
+  dependencies:
+    domelementtype "~1.1.1"
+    entities "~1.1.1"
+
 domain-browser@~1.1.0:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
+
+domelementtype@1, domelementtype@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
+
+domelementtype@~1.1.1:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.1.3.tgz#bd28773e2642881aec51544924299c5cd822185b"
+
+domhandler@^2.3.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.4.1.tgz#892e47000a99be55bbf3774ffea0561d8879c259"
+  dependencies:
+    domelementtype "1"
+
+domutils@^1.5.1:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.6.2.tgz#1958cc0b4c9426e9ed367fb1c8e854891b0fa3ff"
+  dependencies:
+    dom-serializer "0"
+    domelementtype "1"
 
 duplexer2@0.0.2:
   version "0.0.2"
@@ -1742,6 +1780,10 @@ engine.io@~3.1.0:
     ws "~3.3.1"
   optionalDependencies:
     uws "~0.14.4"
+
+entities@^1.1.1, entities@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
 error-ex@^1.2.0:
   version "1.3.1"
@@ -1929,7 +1971,7 @@ extend-shallow@^2.0.1:
   dependencies:
     is-extendable "^0.1.0"
 
-extend-shallow@^3.0.0:
+extend-shallow@^3.0.0, extend-shallow@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/extend-shallow/-/extend-shallow-3.0.2.tgz#26a71aaf073b39fb2127172746131c2704028db8"
   dependencies:
@@ -1982,6 +2024,10 @@ fast-deep-equal@^1.0.0:
 fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
+
+fclone@^1.x:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/fclone/-/fclone-1.0.11.tgz#10e85da38bfea7fc599341c296ee1d77266ee640"
 
 filename-regex@^2.0.0:
   version "2.0.1"
@@ -2447,6 +2493,15 @@ gulp-postcss@^7.0.1:
     postcss-load-config "^1.2.0"
     vinyl-sourcemaps-apply "^0.2.1"
 
+gulp-posthtml@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/gulp-posthtml/-/gulp-posthtml-3.0.4.tgz#7a43f1d3d0c1037a42b94f8b0fdfb97079fa5b93"
+  dependencies:
+    plugin-error "^1.0.0"
+    posthtml "^0.11.0"
+    posthtml-load-config "^1.0.0"
+    through2 "^2.0.0"
+
 gulp-rename@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/gulp-rename/-/gulp-rename-1.2.2.tgz#3ad4428763f05e2764dec1c67d868db275687817"
@@ -2476,6 +2531,12 @@ gulp-sourcemaps@^2.6.3:
     source-map "0.X"
     strip-bom-string "1.X"
     through2 "2.X"
+
+gulp-tap@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gulp-tap/-/gulp-tap-1.0.1.tgz#e671124e1259b4cea219ed1ca97b7f585c334690"
+  dependencies:
+    through2 "^2.0.3"
 
 gulp-uglify@^3.0.0:
   version "3.0.0"
@@ -2685,6 +2746,17 @@ homedir-polyfill@^1.0.1:
 hosted-git-info@^2.1.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
+
+htmlparser2@^3.8.3, htmlparser2@^3.9.2:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
+  dependencies:
+    domelementtype "^1.3.0"
+    domhandler "^2.3.0"
+    domutils "^1.5.1"
+    entities "^1.1.1"
+    inherits "^2.0.1"
+    readable-stream "^2.0.2"
 
 http-browserify@~1.3.1:
   version "1.3.2"
@@ -3039,7 +3111,7 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
 
-isobject@^2.0.0:
+isobject@^2.0.0, isobject@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
   dependencies:
@@ -4137,6 +4209,15 @@ plugin-error@^0.1.2:
     arr-union "^2.0.1"
     extend-shallow "^1.1.2"
 
+plugin-error@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/plugin-error/-/plugin-error-1.0.1.tgz#77016bd8919d0ac377fdcdd0322328953ca5781c"
+  dependencies:
+    ansi-colors "^1.0.1"
+    arr-diff "^4.0.0"
+    arr-union "^3.1.0"
+    extend-shallow "^3.0.2"
+
 portscanner@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/portscanner/-/portscanner-2.1.1.tgz#eabb409e4de24950f5a2a516d35ae769343fbb96"
@@ -4271,6 +4352,87 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.10, postcss@^6.0.16, postcss@^6.0.9
     chalk "^2.3.0"
     source-map "^0.6.1"
     supports-color "^5.1.0"
+
+posthtml-beautify@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/posthtml-beautify/-/posthtml-beautify-0.2.0.tgz#3e4fdd9114c13121d49b8bc554265a485fc1f501"
+  dependencies:
+    babel-runtime "^6.26.0"
+    deepmerge "^2.0.1"
+    posthtml-parser "^0.3.1"
+    posthtml-render "1.0.6"
+
+posthtml-expressions@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/posthtml-expressions/-/posthtml-expressions-1.1.0.tgz#1f2a64304fda8e90b5e646adcd46ddef2adae45b"
+  dependencies:
+    fclone "^1.x"
+
+posthtml-extend@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/posthtml-extend/-/posthtml-extend-0.2.0.tgz#92b0c64def4f38485291e722cc2deb96f52bc409"
+  dependencies:
+    posthtml "^0.11.0"
+    posthtml-parser "^0.3.0"
+
+posthtml-include@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/posthtml-include/-/posthtml-include-1.1.0.tgz#6a11efff05dfba4e9f29788dea1d17248f04f1e1"
+  dependencies:
+    posthtml-parser "^0.1.1"
+
+posthtml-load-config@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/posthtml-load-config/-/posthtml-load-config-1.0.0.tgz#014769b8931aaa35f014cf8f4fe35f746730ccc3"
+  dependencies:
+    cosmiconfig "^2.1.0"
+    posthtml-load-options "^1.0.0"
+
+posthtml-load-options@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/posthtml-load-options/-/posthtml-load-options-1.0.0.tgz#5f9a6f3ffc0242698341c37619d7bc337fec9844"
+  dependencies:
+    cosmiconfig "^2.1.0"
+
+posthtml-match-helper@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/posthtml-match-helper/-/posthtml-match-helper-1.0.1.tgz#451253de8e5844a348e963ad5edd7769eb129513"
+
+"posthtml-modules@https://github.com/voodoobat/posthtml-modules.git":
+  version "0.4.2"
+  resolved "https://github.com/voodoobat/posthtml-modules.git#b3d2e321edae344e6f4209628aa2f19ae4ebb4fa"
+  dependencies:
+    posthtml-match-helper "^1.0.1"
+    posthtml-render "^1.0.6"
+
+posthtml-parser@^0.1.1:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.1.3.tgz#43251f575ba34e361032f79a11e0fc93ab232b24"
+  dependencies:
+    htmlparser2 "^3.8.3"
+
+posthtml-parser@^0.3.0, posthtml-parser@^0.3.1, posthtml-parser@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.3.3.tgz#3fe986fca9f00c0f109d731ba590b192f26e776d"
+  dependencies:
+    htmlparser2 "^3.9.2"
+    isobject "^2.1.0"
+    object-assign "^4.1.1"
+
+posthtml-render@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/posthtml-render/-/posthtml-render-1.0.6.tgz#1b88b8e7860a8ebdfe2f2a1310a4642a55cf5bda"
+
+posthtml-render@^1.0.6, posthtml-render@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/posthtml-render/-/posthtml-render-1.1.0.tgz#854fcaaf3d4b9c8c1dc736fd5d80e52b709d98b7"
+
+posthtml@^0.11.0:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/posthtml/-/posthtml-0.11.2.tgz#4c1755838da624c460ae0e5528391a445fc414d9"
+  dependencies:
+    posthtml-parser "^0.3.3"
+    posthtml-render "^1.1.0"
 
 preserve@^0.2.0:
   version "0.2.0"

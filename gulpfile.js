@@ -15,19 +15,26 @@ const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
 
-// tasks: ejs
-// compiles .html from .ejs
+// tasks: html
+// transform tempates with posthtml
 
-const ejs = require('gulp-ejs')
+const posthtml = require('gulp-posthtml')
 
-gulp.task('ejs', () => {
+gulp.task('html', () => {
+  const root = './src/html'
+
   gulp.src([
-    'src/ejs/**/*.ejs',
-    '!src/ejs/inc{,/**}'
+    'src/html/**/*.html',
+    '!src/html/inc/**'
   ])
     .pipe(plumber())
-    .pipe(ejs())
-    .pipe(rename({ extname:'.html' }))
+    .pipe(posthtml([
+      require('posthtml-extend')({ root }),
+      require('posthtml-include')({ root }),
+      require('posthtml-modules')({ root }),
+      require('posthtml-expressions')(),
+      require('posthtml-beautify')(),
+    ]))
     .pipe(gulp.dest('static'))
 })
 
@@ -40,7 +47,7 @@ const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
 gulp.task('scss', () => {
-  gulp.src('src/scss/*.scss')
+  gulp.src(['src/scss/*.scss'])
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
@@ -66,11 +73,11 @@ const concat = require('gulp-concat')
 
 gulp.task('js', () => {
   merge(
-    gulp.src('src/js/vendor.js')
+    gulp.src(['src/js/vendor.js'])
       .pipe(plumber())
       .pipe(maps.init())
       .pipe(include({ includePaths: ['./node_modules'] })),
-    gulp.src('src/js/theme.js')
+    gulp.src(['src/js/theme.js'])
       .pipe(plumber())
       .pipe(maps.init())
       .pipe(browserify({ transform: ['babelify'] }))
