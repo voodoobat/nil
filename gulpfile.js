@@ -96,7 +96,7 @@ if (argv.w) (() => {
   const tasks = argv._
 
   tasks.forEach(task => gulp.watch(
-    `src/${task}/**/*.*`, [task]
+    `src/${task}/**/*`, [task]
   ))
 })()
 
