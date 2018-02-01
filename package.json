@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "scripts": {
-    "start": "gulp html scss js"
-  },
+  "scripts": {},
   "dependencies": {
     "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
