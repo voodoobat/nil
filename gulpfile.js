@@ -1,6 +1,6 @@
 
 // gulpfile.js
-// scss + es6 + ejs
+// scss + es6 + posthtml
 // -------------------------------------------------------------------
 
 // common packages
@@ -9,7 +9,6 @@
 const gulp = require('gulp')
 const merge = require('merge-stream')
 const plumber = require('gulp-plumber')
-const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
 const gulpif = require('gulp-if')
 const argv = require('yargs').argv
@@ -31,7 +30,6 @@ gulp.task('html', () => {
     .pipe(posthtml([
       require('posthtml-extend')({ root }),
       require('posthtml-include')({ root }),
-      require('posthtml-modules')({ root }),
       require('posthtml-expressions')(),
       require('posthtml-beautify')(),
     ]))
@@ -44,6 +42,7 @@ gulp.task('html', () => {
 
 const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
+const rename = require('gulp-rename')
 const csso = require('gulp-csso')
 
 gulp.task('scss', () => {

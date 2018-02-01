@@ -36,7 +36,6 @@
     "posthtml-expressions": "^1.1.0",
     "posthtml-extend": "^0.2.0",
     "posthtml-include": "^1.1.0",
-    "posthtml-modules": "https://github.com/voodoobat/posthtml-modules.git",
     "yargs": "^10.1.1"
   }
 }
