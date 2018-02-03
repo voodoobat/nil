@@ -14,6 +14,12 @@ const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
 
+// tasks: default
+// runs "html", "scss" and "js" tasks
+
+gulp.task('default', ['html', 'scss', 'js'])
+
+
 // tasks: html
 // transform tempates with posthtml
 
@@ -92,7 +98,11 @@ gulp.task('js', () => {
 // watches for file changes and runs specific tasks
 
 if (argv.w) (() => {
-  const tasks = argv._
+  let tasks = argv._
+
+  if (!tasks.length || tasks[0] == 'default') {
+    tasks = ['html', 'scss', 'js']
+  }
 
   tasks.forEach(task => gulp.watch(
     `src/${task}/**/*`, [task]
@@ -112,7 +122,7 @@ if (argv.s) (() => {
     proxy: argv.proxy
   })
 
-  gulp.watch([
+  argv.w && gulp.watch([
     './**/*.html',
     './**/*.min.css',
     './**/*.min.js'
