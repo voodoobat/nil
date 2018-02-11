@@ -9,6 +9,7 @@
 const gulp = require('gulp')
 const merge = require('merge-stream')
 const plumber = require('gulp-plumber')
+const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
 const gulpif = require('gulp-if')
 const argv = require('yargs').argv
@@ -48,7 +49,6 @@ gulp.task('html', () => {
 
 const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
-const rename = require('gulp-rename')
 const csso = require('gulp-csso')
 
 gulp.task('scss', () => {
@@ -73,21 +73,23 @@ gulp.task('scss', () => {
 const uglify = require('gulp-uglify')
 const browserify = require('gulp-browserify')
 const include = require('gulp-include')
-const concat = require('gulp-concat')
 
 gulp.task('js', () => {
   merge(
     gulp.src(['src/js/vendor.js'])
-      .pipe(plumber())
       .pipe(maps.init())
-      .pipe(include({ includePaths: ['./node_modules'] })),
+      .pipe(include({ includePaths: ['./node_modules'] }))
+      .pipe(maps.write()),
     gulp.src(['src/js/theme.js'])
       .pipe(plumber())
-      .pipe(maps.init())
-      .pipe(browserify({ transform: ['babelify'] }))
+      .pipe(browserify({
+        transform: ['babelify'],
+        debug: true
+      }))
   )
+    .pipe(maps.init({ loadMaps: true }))
     .pipe(gulpif(!argv.dev, uglify()))
-    .pipe(concat('theme.min.js'))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
 })
