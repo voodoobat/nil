@@ -29,7 +29,6 @@
     "merge-stream": "^1.0.1",
     "postcss": "^6.0.16",
     "postcss-assets": "^5.0.0",
-    "postcss-short": "^4.1.0",
     "posthtml-beautify": "^0.2.0",
     "posthtml-expressions": "^1.1.0",
     "posthtml-extend": "^0.2.0",

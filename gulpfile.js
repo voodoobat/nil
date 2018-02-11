@@ -57,7 +57,6 @@ gulp.task('scss', () => {
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
     .pipe(postcss([
-      require('postcss-short')(),
       require('postcss-assets')({ basePath: 'static/assets/images' }),
       require('autoprefixer')(['last 3 versions', 'ie >= 11'])
     ]))
