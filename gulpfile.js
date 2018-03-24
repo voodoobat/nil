@@ -54,7 +54,7 @@ gulp.task('scss', () => {
       require('postcss-assets')({ basePath: 'static/assets/images' }),
       require('autoprefixer')(['last 3 versions', 'ie >= 11'])
     ]))
-    .pipe(gulpif(!argv.dev, csso()))
+    .pipe(gulpif(!argv.env || argv.env != 'dev', csso()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
@@ -82,7 +82,7 @@ gulp.task('js', () => {
       }))
   )
     .pipe(maps.init({ loadMaps: true }))
-    .pipe(gulpif(!argv.dev, uglify()))
+    .pipe(gulpif(!argv.env || argv.env != 'dev', uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
