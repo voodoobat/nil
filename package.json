@@ -1,10 +1,10 @@
 {
   "name": "nil",
+  "private": true,
   "version": "0.0.0",
   "license": "MIT",
-  "private": true,
   "scripts": {},
-  "dependencies": {
+  "devDependencies": {
     "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
