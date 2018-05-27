@@ -37,7 +37,7 @@ gulp.task('html', () => {
 })
 
 
-// tasks: css
+// tasks: scss
 // compiles scss, apply postcss plugins and minify css
 
 const sass = require('gulp-sass')
