@@ -27,7 +27,6 @@
     "postcss": "^6.0.22",
     "postcss-assets": "^5.0.0",
     "posthtml-beautify": "^0.2.0",
-    "posthtml-expressions": "^1.1.0",
     "posthtml-extend": "^0.2.1",
     "posthtml-include": "^1.1.0",
     "yargs": "^11.0.0"

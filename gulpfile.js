@@ -31,7 +31,6 @@ gulp.task('html', () => {
     .pipe(posthtml([
       require('posthtml-extend')({ root }),
       require('posthtml-include')({ root }),
-      require('posthtml-expressions')(),
       require('posthtml-beautify')(),
     ]))
     .pipe(gulp.dest('static'))

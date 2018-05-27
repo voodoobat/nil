@@ -1974,10 +1974,6 @@ fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
 
-fclone@^1.x:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/fclone/-/fclone-1.0.11.tgz#10e85da38bfea7fc599341c296ee1d77266ee640"
-
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -4220,12 +4216,6 @@ posthtml-beautify@^0.2.0:
     deepmerge "^2.0.1"
     posthtml-parser "^0.3.1"
     posthtml-render "1.0.6"
-
-posthtml-expressions@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/posthtml-expressions/-/posthtml-expressions-1.1.0.tgz#1f2a64304fda8e90b5e646adcd46ddef2adae45b"
-  dependencies:
-    fclone "^1.x"
 
 posthtml-extend@^0.2.1:
   version "0.2.1"
