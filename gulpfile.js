@@ -7,7 +7,6 @@
 // load packages and assing them semantic names
 
 const gulp = require('gulp')
-const merge = require('merge-stream')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
@@ -66,6 +65,7 @@ gulp.task('scss', () => {
 const uglify = require('gulp-uglify')
 const browserify = require('gulp-browserify')
 const include = require('gulp-include')
+const merge = require('merge-stream')
 
 gulp.task('js', () => {
   merge(
@@ -91,11 +91,9 @@ gulp.task('js', () => {
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
-if (argv.w) (() => {
-  argv._.forEach(task => gulp.watch(
-    `src/${task}/**/*`, [task]
-  ))
-})()
+if (argv.w) argv._.forEach(task => gulp.watch(
+  `src/${task}/**/*`, [task]
+))
 
 
 // serve: gulp -s
@@ -103,16 +101,16 @@ if (argv.w) (() => {
 
 const server = require('browser-sync').create()
 
-if (argv.s) (() => {
+if (argv.s) {
   server.init({
     open: argv.open,
     server: !argv.proxy ? 'static' : false,
     proxy: argv.proxy
   })
 
-  argv.w && gulp.watch([
+  if (argv.w) gulp.watch([
     './**/*.html',
     './**/*.min.css',
     './**/*.min.js'
   ], server.reload)
-})()
+}
