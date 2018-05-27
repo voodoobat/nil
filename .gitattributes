@@ -1,1 +1,2 @@
 *.min.* -diff
+yarn.lock -diff
