@@ -10,6 +10,7 @@ const gulp = require('gulp')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
+const include = require('gulp-include')
 const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
@@ -36,21 +37,24 @@ gulp.task('html', () => {
 })
 
 
-// tasks: scss
-// compiles scss, apply postcss plugins and minify css
+// tasks: css
+// apply postcss plugins and minify css
 
-const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
-gulp.task('scss', () => {
-  gulp.src(['src/scss/*.scss'])
+gulp.task('css', () => {
+  gulp.src(['src/css/*.css'])
     .pipe(plumber())
     .pipe(maps.init())
-    .pipe(sass({ includePaths: ['./node_modules'] }))
+    .pipe(include({ includePaths: ['./node_modules'] }))
     .pipe(postcss([
+      require('postcss-import')(),
       require('postcss-assets')({ basePath: 'static/assets/images' }),
-      require('autoprefixer')(['last 3 versions', 'ie >= 11'])
+      require('postcss-cssnext')({
+        features: { customProperties: { preserve: true } },
+        browsers: ['last 3 versions', 'ie >= 11']
+      })
     ]))
     .pipe(gulpif(!argv.env || argv.env != 'dev', csso()))
     .pipe(rename({ suffix: '.min' }))
@@ -64,7 +68,6 @@ gulp.task('scss', () => {
 
 const uglify = require('gulp-uglify')
 const browserify = require('gulp-browserify')
-const include = require('gulp-include')
 const merge = require('merge-stream')
 
 gulp.task('js', () => {
