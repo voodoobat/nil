@@ -1,4 +1,3 @@
-
 // gulpfile.js
 // scss + es6 + posthtml
 // -------------------------------------------------------------------
@@ -23,7 +22,7 @@ const posthtml = require('gulp-posthtml')
 gulp.task('html', () => {
   const root = './src/html'
 
-  gulp.src([
+  return gulp.src([
     'src/html/**/*.html',
     '!src/html/inc/**'
   ])
@@ -44,7 +43,7 @@ const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
 gulp.task('css', () => {
-  gulp.src(['src/css/*.css'])
+  return gulp.src(['src/css/*.css'])
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(include({ includePaths: ['./node_modules'] }))
@@ -71,7 +70,7 @@ const browserify = require('gulp-browserify')
 const merge = require('merge-stream')
 
 gulp.task('js', () => {
-  merge(
+  return merge(
     gulp.src(['src/js/vendor.js'])
       .pipe(maps.init())
       .pipe(include({ includePaths: ['./node_modules'] }))
@@ -95,7 +94,7 @@ gulp.task('js', () => {
 // watches for file changes and runs specific tasks
 
 if (argv.w) argv._.forEach(task => gulp.watch(
-  `src/${task}/**/*`, [task]
+  `src/${task}/**/*`, gulp.parallel(task)
 ))
 
 
@@ -112,8 +111,8 @@ if (argv.s) {
   })
 
   if (argv.w) gulp.watch([
-    './**/*.html',
-    './**/*.min.css',
-    './**/*.min.js'
-  ], server.reload)
+    'static/**/*.html',
+    'static/**/*.min.css',
+    'static/**/*.min.js'
+  ]).on('change', server.reload)
 }
