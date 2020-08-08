@@ -1,8 +1,6 @@
 {
   "name": "nil",
   "private": true,
-  "version": "0.0.0",
-  "license": "MIT",
   "scripts": {},
   "devDependencies": {
     "autoprefixer": "^8.5.1",
@@ -31,7 +29,5 @@
     "posthtml-include": "^1.1.0",
     "yargs": "^11.0.0"
   },
-  "dependencies": {
-    "jquery": "^3.3.1"
-  }
+  "dependencies": {}
 }
