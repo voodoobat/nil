@@ -52,7 +52,7 @@ const scss = () => {
     .pipe(sass({ includePaths: ['./node_modules'] }))
     .pipe(postcss([
       require('postcss-assets')({ basePath: 'static/assets/images' }),
-      require('autoprefixer')(['last 3 versions', 'ie >= 11'])
+      require('autoprefixer')()
     ]))
     .pipe(gulpif(!argv.fast, csso()))
     .pipe(rename({ suffix: '.min' }))
