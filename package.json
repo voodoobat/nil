@@ -3,10 +3,9 @@
   "private": true,
   "scripts": {},
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "autoprefixer": "^9.8.6",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.12",
     "gulp": "^4.0.2",
