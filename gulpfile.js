@@ -57,7 +57,7 @@ const scss = () => {
     .pipe(gulpif(!argv.fast, csso()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
-    .pipe(gulp.dest('static/assets'))
+    .pipe(gulp.dest('public/assets'))
 }
 
 exports.scss = scss
@@ -88,7 +88,7 @@ const js = () => {
     .pipe(gulpif(!argv.fast, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
-    .pipe(gulp.dest('static/assets'))
+    .pipe(gulp.dest('public/assets'))
 }
 
 exports.js = js
@@ -112,13 +112,13 @@ if (argv.s) fs.readFile('.proxy', 'utf8', (e, proxy) => {
 
   server.create().init({
     open: argv.open,
-    server: !proxy ? 'static' : false,
+    server: !proxy ? 'public' : false,
     watch: argv.w,
     proxy: proxy,
     files: [
-      'static/**/*.css',
-      'static/**/*.html',
-      'static/**/*.js'
+      'public/**/*.css',
+      'public/**/*.html',
+      'public/**/*.js'
     ]
   })
 })
