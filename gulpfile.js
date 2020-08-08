@@ -97,7 +97,7 @@ exports.js = js
 // watches for file changes and runs specific tasks
 
 if (argv.w) argv._.forEach(task => gulp.watch(
-  `src/${task}/**/*`, exports[task]
+  `src/${task}/**/*.${task}`, exports[task]
 ))
 
 
