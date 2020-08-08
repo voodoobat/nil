@@ -105,18 +105,20 @@ if (argv.w) argv._.forEach(task => gulp.watch(
 // serve: gulp -s
 // runs browser-sync server
 
-const server = require('browser-sync').create()
+const fs = require('fs')
+const server = require('browser-sync')
 
-if (argv.s) {
-  server.init({
+if (argv.s) fs.readFile('.proxy', 'utf8', (e, proxy) => {
+
+  server.create().init({
     open: argv.open,
-    server: !argv.proxy ? 'static' : false,
-    proxy: argv.proxy
+    server: !proxy ? 'static' : false,
+    watch: argv.w,
+    proxy: proxy,
+    files: [
+      'static/**/*.css',
+      'static/**/*.html',
+      'static/**/*.js'
+    ]
   })
-
-  if (argv.w) gulp.watch([
-    './**/*.html',
-    './**/*.min.css',
-    './**/*.min.js'
-  ], server.reload)
-}
+})
