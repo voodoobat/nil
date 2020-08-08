@@ -1,4 +1,3 @@
-
 // gulpfile.js
 // scss + es6 + posthtml
 // -------------------------------------------------------------------
@@ -19,10 +18,10 @@ const argv = require('yargs').argv
 
 const posthtml = require('gulp-posthtml')
 
-gulp.task('html', () => {
+const html = () => {
   const root = './src/html'
 
-  gulp.src([
+  return gulp.src([
     'src/html/**/*.html',
     '!src/html/inc/**'
   ])
@@ -33,7 +32,9 @@ gulp.task('html', () => {
       require('posthtml-beautify')(),
     ]))
     .pipe(gulp.dest('static'))
-})
+}
+
+exports.html = html
 
 
 // tasks: scss
@@ -43,8 +44,8 @@ const sass = require('gulp-sass')
 const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
-gulp.task('scss', () => {
-  gulp.src(['src/scss/*.scss'])
+const scss = () => {
+  return gulp.src(['src/scss/*.scss'])
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
@@ -56,7 +57,9 @@ gulp.task('scss', () => {
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
-})
+}
+
+exports.scss = scss
 
 
 // tasks: js
@@ -67,8 +70,8 @@ const browserify = require('gulp-browserify')
 const include = require('gulp-include')
 const merge = require('merge-stream')
 
-gulp.task('js', () => {
-  merge(
+const js = () => {
+  return merge(
     gulp.src(['src/js/vendor.js'])
       .pipe(maps.init())
       .pipe(include({ includePaths: ['./node_modules'] }))
@@ -85,14 +88,16 @@ gulp.task('js', () => {
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
-})
+}
+
+exports.js = js
 
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
 if (argv.w) argv._.forEach(task => gulp.watch(
-  `src/${task}/**/*`, [task]
+  `src/${task}/**/*`, exports[task]
 ))
 
 
