@@ -82,3 +82,6 @@ node_modules/
 
 # Tern
 .tern-port
+
+# Browsersync
+.proxy
