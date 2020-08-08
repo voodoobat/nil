@@ -54,7 +54,7 @@ const scss = () => {
       require('postcss-assets')({ basePath: 'static/assets/images' }),
       require('autoprefixer')(['last 3 versions', 'ie >= 11'])
     ]))
-    .pipe(gulpif(!argv.env || argv.env != 'dev', csso()))
+    .pipe(gulpif(!argv.fast, csso()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
@@ -85,7 +85,7 @@ const js = () => {
       }))
   )
     .pipe(maps.init({ loadMaps: true }))
-    .pipe(gulpif(!argv.env || argv.env != 'dev', uglify()))
+    .pipe(gulpif(!argv.fast, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('static/assets'))
