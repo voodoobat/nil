@@ -19,7 +19,7 @@ const argv = require('yargs').argv
 const posthtml = require('gulp-posthtml')
 
 const html = () => {
-  const root = './src/html'
+  const root = 'src/html'
 
   return gulp.src([
     'src/html/**/*.html',
@@ -29,6 +29,7 @@ const html = () => {
     .pipe(posthtml([
       require('posthtml-extend')({ root }),
       require('posthtml-include')({ root }),
+      require('posthtml-expressions')(),
       require('posthtml-beautify')(),
     ]))
     .pipe(gulp.dest('static'))
