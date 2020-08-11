@@ -51,7 +51,7 @@ const scss = () => {
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
     .pipe(postcss([
-      require('postcss-assets')({ basePath: 'static/assets/images' }),
+      require('postcss-assets')({ basePath: 'public/assets/images' }),
       require('autoprefixer')()
     ]))
     .pipe(gulpif(!argv.fast, csso()))
