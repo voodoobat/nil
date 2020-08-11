@@ -113,7 +113,7 @@ if (argv.s) fs.readFile('.proxy', 'utf8', (e, proxy) => {
 
   server.create().init({
     open: argv.open,
-    server: !proxy ? 'public' : false,
+    server: proxy ? false : 'public',
     watch: argv.w,
     proxy,
     files: [
