@@ -30,7 +30,7 @@ const html = () => {
       require('posthtml-extend')({ root }),
       require('posthtml-include')({ root }),
       require('posthtml-expressions')(),
-      require('posthtml-beautify')(),
+      require('posthtml-beautify')()
     ]))
     .pipe(gulp.dest('public'))
 }
