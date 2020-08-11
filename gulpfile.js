@@ -70,6 +70,8 @@ const rollup = require('rollup')
 
 const js = () => {
   const plugins = [
+    require('@rollup/plugin-node-resolve').nodeResolve(),
+    require('@rollup/plugin-commonjs')(),
     require('@rollup/plugin-babel').babel({
       babelHelpers: 'bundled',
       presets: ['@babel/preset-env']
