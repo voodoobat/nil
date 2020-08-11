@@ -32,7 +32,7 @@ const html = () => {
       require('posthtml-expressions')(),
       require('posthtml-beautify')(),
     ]))
-    .pipe(gulp.dest('static'))
+    .pipe(gulp.dest('public'))
 }
 
 exports.html = html
