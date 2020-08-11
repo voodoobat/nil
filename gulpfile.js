@@ -66,29 +66,28 @@ exports.scss = scss
 // tasks: js
 // transforms es6 to es5 and minify js
 
-const uglify = require('gulp-uglify')
-const browserify = require('gulp-browserify')
-const include = require('gulp-include')
-const merge = require('merge-stream')
+const rollup = require('rollup')
 
 const js = () => {
-  return merge(
-    gulp.src(['src/js/vendor.js'])
-      .pipe(maps.init())
-      .pipe(include({ includePaths: ['./node_modules'] }))
-      .pipe(maps.write()),
-    gulp.src(['src/js/theme.js'])
-      .pipe(plumber())
-      .pipe(browserify({
-        transform: ['babelify'],
-        debug: true
-      }))
+  const plugins = [
+    require('@rollup/plugin-babel').babel({
+      babelHelpers: 'bundled',
+      presets: ['@babel/preset-env']
+    })
+  ]
+
+  if (!argv.fast) plugins.push(
+    require('rollup-plugin-uglify').uglify({})
   )
-    .pipe(maps.init({ loadMaps: true }))
-    .pipe(gulpif(!argv.fast, uglify()))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(maps.write('.'))
-    .pipe(gulp.dest('public/assets'))
+
+  return rollup.rollup({
+    input: 'src/js/theme.js',
+    plugins
+  }).then(result => result.write({
+    file: 'public/assets/theme.min.js',
+    format: 'iife',
+    sourcemap: true
+  }))
 }
 
 exports.js = js
