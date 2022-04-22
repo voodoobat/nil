@@ -1,29 +1,23 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true,
-    "jquery": true
+    "es2021": true,
+    "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "prettier",
+    "eslint:recommended"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "sourceType": "module"
   },
   "rules": {
+    "prettier/prettier": "error",
     "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
-    "valid-jsdoc": "error",
-    "accessor-pairs": "error",
-    "array-callback-return": "error",
-    "block-scoped-var": "error",
-    "complexity": "error",
-    "default-case": "error",
-    "guard-for-in": "error",
-    "init-declarations": "error",
     "semi": ["error", "never"],
     "eol-last": ["error", "always"],
     "no-alert": "error",
@@ -32,7 +26,6 @@
     "no-extra-parens": "error",
     "no-prototype-builtins": "error",
     "no-template-curly-in-string": "error",
-    "no-div-regex": "error",
     "no-else-return": "error",
     "no-empty-function": "error",
     "no-eval": "error",
@@ -55,6 +48,6 @@
     "no-undef-init": "error",
     "no-undefined": "error",
     "no-use-before-define": "error",
-    "no-console": 0
+    "no-console": "warn"
   }
 }
