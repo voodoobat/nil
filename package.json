@@ -1,6 +1,9 @@
 {
   "name": "nil",
   "private": true,
+  "scripts": {
+    "dev": "gulp html scss js -ws"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@rollup/plugin-babel": "^5.3.1",
@@ -8,6 +11,7 @@
     "@rollup/plugin-node-resolve": "^13.2.1",
     "autoprefixer": "^10.4.4",
     "browser-sync": "^2.27.9",
+    "dotenv": "^16.0.0",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-if": "^3.0.0",

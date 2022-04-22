@@ -80,11 +80,10 @@ yarn-error.log*
 # Dependency directories
 node_modules/
 
-# Tern
-.tern-port
-
-# Browsersync
-.proxy
-
 # Intellij
 .idea
+
+# .env
+.env
+.env.*
+!.env.dist

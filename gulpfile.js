@@ -13,13 +13,22 @@ const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
 
+// dotenv
+// load env config file
+require('dotenv').config({
+  path: argv.env && argv.env.length
+    ? `./.env.${argv.env}`
+    : './.env'
+})
+
+
 // tasks: html
 // transform tempates with posthtml
 
 const posthtml = require('gulp-posthtml')
 
 const html = () => {
-  const root = './src/html'
+  const root = 'src/html'
 
   return gulp.src([
     'src/html/**/*.html',
@@ -101,10 +110,10 @@ if (argv.w) argv._.forEach(task => gulp.watch(
 // serve: gulp -s
 // runs browser-sync server
 
-const fs = require('fs')
 const server = require('browser-sync')
 
-if (argv.s) fs.readFile('.proxy', 'utf8', (e, proxy) => {
+if (argv.s) {
+  const proxy = process.env.BROWSERSYNC_PROXY
 
   server.create().init({
     open: argv.open,
@@ -117,4 +126,4 @@ if (argv.s) fs.readFile('.proxy', 'utf8', (e, proxy) => {
       'public/**/*.js'
     ]
   })
-})
+}
