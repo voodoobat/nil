@@ -26,7 +26,7 @@ const beautify = require('gulp-beautify')
 const templates = () => {
   return gulp
     .src([
-      'src/templates/**/*.templates',
+      'src/templates/**/*.twig',
       '!src/templates/components/**',
       '!src/templates/layout/**',
     ])
