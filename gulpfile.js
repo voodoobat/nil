@@ -8,7 +8,6 @@ const gulp = require('gulp')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
-const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
 // dotenv
@@ -58,7 +57,7 @@ const scss = () => {
         require('autoprefixer')(),
       ])
     )
-    .pipe(gulpif(!argv.fast, csso()))
+    .pipe(csso())
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
     .pipe(gulp.dest('public/assets'))
