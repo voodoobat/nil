@@ -2,7 +2,8 @@
   "name": "nil",
   "private": true,
   "scripts": {
-    "dev": "gulp html scss js -ws"
+    "dev": "gulp twig scss js -ws",
+    "build": "gulp twig scss js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
@@ -13,18 +14,16 @@
     "browser-sync": "^2.27.9",
     "dotenv": "^16.0.0",
     "gulp": "^4.0.2",
+    "gulp-beautify": "^3.0.0",
     "gulp-csso": "^4.0.1",
     "gulp-if": "^3.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^9.0.1",
-    "gulp-posthtml": "^3.0.5",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
+    "gulp-twig": "^1.2.0",
     "postcss-assets": "^6.0.0",
-    "posthtml-beautify": "^0.7.0",
-    "posthtml-extend": "^0.6.2",
-    "posthtml-include": "^1.7.3",
     "rollup": "^2.70.2",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.50.1",

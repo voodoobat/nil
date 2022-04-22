@@ -22,29 +22,24 @@ require('dotenv').config({
 })
 
 
-// tasks: html
+// tasks: twig
 // transform tempates with posthtml
 
-const posthtml = require('gulp-posthtml')
+const gulpTwig = require('gulp-twig')
+const beautify = require('gulp-beautify')
 
-const html = () => {
-  const root = 'src/html'
-
+const twig = () => {
   return gulp.src([
-    'src/html/**/*.html',
-    '!src/html/inc/**'
+    'src/twig/**/*.twig',
+    '!src/twig/inc/**'
   ])
     .pipe(plumber())
-    .pipe(posthtml([
-      require('posthtml-expressions')(),
-      require('posthtml-extend')({ root }),
-      require('posthtml-include')({ root }),
-      require('posthtml-beautify')()
-    ]))
+    .pipe(gulpTwig())
+    .pipe(beautify.html())
     .pipe(gulp.dest('public'))
 }
 
-exports.html = html
+exports.twig = twig
 
 
 // tasks: scss
