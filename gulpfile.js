@@ -1,5 +1,5 @@
 // gulpfile.js
-// scss + es6 + twig
+// scss + es6 + templates
 
 // common packages
 // load packages and assign them semantic names
@@ -18,22 +18,26 @@ require('dotenv').config({
   path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
 })
 
-// tasks: twig
+// tasks: templates
 // compile twig templates
 
-const gulpTwig = require('gulp-twig')
+const twig = require('gulp-twig')
 const beautify = require('gulp-beautify')
 
-const twig = () => {
+const templates = () => {
   return gulp
-    .src(['src/twig/**/*.twig', '!src/twig/inc/**'])
+    .src([
+      'src/templates/**/*.templates',
+      '!src/templates/components/**',
+      '!src/templates/layout/**',
+    ])
     .pipe(plumber())
-    .pipe(gulpTwig())
+    .pipe(twig())
     .pipe(beautify.html())
     .pipe(gulp.dest('public'))
 }
 
-exports.twig = twig
+exports.templates = templates
 
 // tasks: scss
 // compiles scss, apply postcss plugins and minify css
@@ -70,7 +74,7 @@ const rollup = require('rollup')
 const js = () => {
   return rollup
     .rollup({
-      input: 'src/js/theme.js',
+      input: ['src/js/theme.js'],
       plugins: [
         require('rollup-plugin-terser').terser(),
         require('@rollup/plugin-node-resolve').nodeResolve(),
@@ -113,9 +117,9 @@ exports.svg = svg
 // watches for file changes and runs specific tasks
 
 if (argv.w) {
-  argv._.forEach((task) =>
-    gulp.watch(`src/${task}/**/*.${task}`, exports[task])
-  )
+  argv._.forEach((task) => {
+    gulp.watch(`src/${task}/**/*.*`, exports[task])
+  })
 }
 
 // serve: gulp -s
