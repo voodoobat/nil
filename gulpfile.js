@@ -68,29 +68,18 @@ exports.scss = scss
 // tasks: js
 // transforms es6 to es5 and minify js
 
-const rollup = require('rollup')
+const webpack = require('webpack')
 
 const js = () => {
-  return rollup
-    .rollup({
-      input: ['src/js/theme.js'],
-      plugins: [
-        require('rollup-plugin-terser').terser(),
-        require('@rollup/plugin-node-resolve').nodeResolve(),
-        require('@rollup/plugin-commonjs')(),
-        require('@rollup/plugin-babel').babel({
-          babelHelpers: 'bundled',
-          presets: ['@babel/preset-env'],
-        }),
-      ],
+  return new Promise((resolve, reject) => {
+    webpack(require('./webpack.config'), (e, stats) => {
+      if (e) return reject(e)
+      if (stats.hasErrors()) {
+        return reject(new Error(stats.compilation.errors.join('\n')))
+      }
+      resolve()
     })
-    .then((result) =>
-      result.write({
-        file: 'public/assets/theme.min.js',
-        format: 'iife',
-        sourcemap: true,
-      })
-    )
+  })
 }
 
 exports.js = js

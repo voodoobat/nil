@@ -7,10 +7,8 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^21.1.0",
-    "@rollup/plugin-node-resolve": "^13.2.1",
     "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.9",
     "dotenv": "^16.0.0",
     "eslint": "^8.13.0",
@@ -29,9 +27,9 @@
     "gulp-twig": "^1.2.0",
     "postcss-assets": "^6.0.0",
     "prettier": "^2.6.2",
-    "rollup": "^2.70.2",
-    "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.50.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.72.0",
     "yargs": "^17.4.1"
   },
   "resolutions": {
@@ -61,10 +59,22 @@
     },
     "rules": {
       "prettier/prettier": "error",
-      "indent": ["error", 2],
-      "quotes": ["error", "single"],
-      "semi": ["error", "never"],
-      "eol-last": ["error", "always"],
+      "indent": [
+        "error",
+        2
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "never"
+      ],
+      "eol-last": [
+        "error",
+        "always"
+      ],
       "no-alert": "error",
       "no-caller": "error",
       "no-var": "error",
