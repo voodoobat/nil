@@ -1,5 +1,5 @@
 // gulpfile.js
-// scss + es6 + templates
+// scss + es6 + twig
 
 // common packages
 // load packages and assign them semantic names
