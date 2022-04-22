@@ -36,5 +36,49 @@
   },
   "resolutions": {
     "graceful-fs": "^4.2.9"
-  }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "endOfLine": "auto"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "prettier",
+      "eslint:recommended"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "indent": ["error", 2],
+      "quotes": ["error", "single"],
+      "semi": ["error", "never"],
+      "eol-last": ["error", "always"],
+      "no-alert": "error",
+      "no-caller": "error",
+      "no-var": "error",
+      "no-eval": "error",
+      "no-undefined": "error",
+      "no-console": "warn"
+    }
+  },
+  "eslintIgnore": [
+    "**/*.min.js",
+    "node_modules/*"
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "> 1%"
+  ]
 }
