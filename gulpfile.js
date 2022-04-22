@@ -12,15 +12,11 @@ const maps = require('gulp-sourcemaps')
 const gulpif = require('gulp-if')
 const argv = require('yargs').argv
 
-
 // dotenv
 // load env config file
 require('dotenv').config({
-  path: argv.env && argv.env.length
-    ? `./.env.${argv.env}`
-    : './.env'
+  path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
 })
-
 
 // tasks: twig
 // transform tempates with posthtml
@@ -29,10 +25,8 @@ const gulpTwig = require('gulp-twig')
 const beautify = require('gulp-beautify')
 
 const twig = () => {
-  return gulp.src([
-    'src/twig/**/*.twig',
-    '!src/twig/inc/**'
-  ])
+  return gulp
+    .src(['src/twig/**/*.twig', '!src/twig/inc/**'])
     .pipe(plumber())
     .pipe(gulpTwig())
     .pipe(beautify.html())
@@ -40,7 +34,6 @@ const twig = () => {
 }
 
 exports.twig = twig
-
 
 // tasks: scss
 // compiles scss, apply postcss plugins and minify css
@@ -50,14 +43,17 @@ const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
 const scss = () => {
-  return gulp.src(['src/scss/*.scss'])
+  return gulp
+    .src(['src/scss/*.scss'])
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
-    .pipe(postcss([
-      require('postcss-assets')({ basePath: 'public/assets/images' }),
-      require('autoprefixer')()
-    ]))
+    .pipe(
+      postcss([
+        require('postcss-assets')({ basePath: 'public/assets/images' }),
+        require('autoprefixer')(),
+      ])
+    )
     .pipe(gulpif(!argv.fast, csso()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
@@ -66,41 +62,43 @@ const scss = () => {
 
 exports.scss = scss
 
-
 // tasks: js
 // transforms es6 to es5 and minify js
 
 const rollup = require('rollup')
 
 const js = () => {
-  return rollup.rollup({
-    input: 'src/js/theme.js',
-    plugins: [
-      require('rollup-plugin-terser').terser(),
-      require('@rollup/plugin-node-resolve').nodeResolve(),
-      require('@rollup/plugin-commonjs')(),
-      require('@rollup/plugin-babel').babel({
-        babelHelpers: 'bundled',
-        presets: ['@babel/preset-env']
-      }),
-    ]
-  }).then(result => result.write({
-    file: 'public/assets/theme.min.js',
-    format: 'iife',
-    sourcemap: true
-  }))
+  return rollup
+    .rollup({
+      input: 'src/js/theme.js',
+      plugins: [
+        require('rollup-plugin-terser').terser(),
+        require('@rollup/plugin-node-resolve').nodeResolve(),
+        require('@rollup/plugin-commonjs')(),
+        require('@rollup/plugin-babel').babel({
+          babelHelpers: 'bundled',
+          presets: ['@babel/preset-env'],
+        }),
+      ],
+    })
+    .then((result) =>
+      result.write({
+        file: 'public/assets/theme.min.js',
+        format: 'iife',
+        sourcemap: true,
+      })
+    )
 }
 
 exports.js = js
 
-
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
-if (argv.w) argv._.forEach(task => gulp.watch(
-  `src/${task}/**/*.${task}`, exports[task]
-))
-
+if (argv.w)
+  argv._.forEach((task) =>
+    gulp.watch(`src/${task}/**/*.${task}`, exports[task])
+  )
 
 // serve: gulp -s
 // runs browser-sync server
@@ -115,10 +113,6 @@ if (argv.s) {
     server: proxy ? false : 'public',
     watch: argv.w,
     proxy,
-    files: [
-      'public/**/*.css',
-      'public/**/*.html',
-      'public/**/*.js'
-    ]
+    files: ['public/**/*.css', 'public/**/*.html', 'public/**/*.js'],
   })
 }
