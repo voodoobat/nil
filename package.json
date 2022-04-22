@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "gulp templates scss js svg -ws",
-    "build": "gulp templates scss svg js"
+    "build": "gulp templates scss svg js --env production"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",

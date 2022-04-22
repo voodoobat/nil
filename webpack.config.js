@@ -1,7 +1,7 @@
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 
-module.exports = {
+module.exports = (mode) => ({
   entry: {
     theme: './src/js/theme.js',
   },
@@ -20,7 +20,7 @@ module.exports = {
     ],
   },
   optimization: {
-    minimize: true,
+    minimize: mode === 'production',
     minimizer: [new TerserPlugin({ extractComments: false })],
     splitChunks: {
       cacheGroups: {
@@ -36,4 +36,4 @@ module.exports = {
     path: path.resolve(__dirname, 'public/assets'),
     filename: '[name].min.js',
   },
-}
+})

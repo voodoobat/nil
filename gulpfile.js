@@ -72,7 +72,7 @@ const webpack = require('webpack')
 
 const js = () => {
   return new Promise((resolve, reject) => {
-    webpack(require('./webpack.config'), (e, stats) => {
+    webpack(require('./webpack.config')(process.env.MODE), (e, stats) => {
       if (e) return reject(e)
       if (stats.hasErrors()) {
         return reject(new Error(stats.compilation.errors.join('\n')))
