@@ -1,9 +1,8 @@
 // gulpfile.js
-// scss + es6 + posthtml
-// -------------------------------------------------------------------
+// scss + es6 + twig
 
 // common packages
-// load packages and assing them semantic names
+// load packages and assign them semantic names
 
 const gulp = require('gulp')
 const plumber = require('gulp-plumber')
@@ -14,12 +13,13 @@ const argv = require('yargs').argv
 
 // dotenv
 // load env config file
+
 require('dotenv').config({
   path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
 })
 
 // tasks: twig
-// transform tempates with posthtml
+// compile twig templates
 
 const gulpTwig = require('gulp-twig')
 const beautify = require('gulp-beautify')
@@ -112,10 +112,11 @@ exports.svg = svg
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
-if (argv.w)
+if (argv.w) {
   argv._.forEach((task) =>
     gulp.watch(`src/${task}/**/*.${task}`, exports[task])
   )
+}
 
 // serve: gulp -s
 // runs browser-sync server
@@ -127,7 +128,7 @@ if (argv.s) {
 
   server.create().init({
     open: argv.open,
-    files: ['public/**/*.{html,css,js,svg}'],
+    files: ['public/**/*.*'],
     server: proxy ? false : 'public',
     watch: argv.w,
     proxy,
