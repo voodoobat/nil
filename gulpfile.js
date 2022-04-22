@@ -19,7 +19,7 @@ const argv = require('yargs').argv
 const posthtml = require('gulp-posthtml')
 
 const html = () => {
-  const root = 'src/html'
+  const root = './src/html'
 
   return gulp.src([
     'src/html/**/*.html',
@@ -27,9 +27,9 @@ const html = () => {
   ])
     .pipe(plumber())
     .pipe(posthtml([
+      require('posthtml-expressions')(),
       require('posthtml-extend')({ root }),
       require('posthtml-include')({ root }),
-      require('posthtml-expressions')(),
       require('posthtml-beautify')()
     ]))
     .pipe(gulp.dest('public'))
@@ -41,7 +41,7 @@ exports.html = html
 // tasks: scss
 // compiles scss, apply postcss plugins and minify css
 
-const sass = require('gulp-sass')
+const sass = require('gulp-sass')(require('sass'))
 const postcss = require('gulp-postcss')
 const csso = require('gulp-csso')
 
@@ -69,22 +69,17 @@ exports.scss = scss
 const rollup = require('rollup')
 
 const js = () => {
-  const plugins = [
-    require('@rollup/plugin-node-resolve').nodeResolve(),
-    require('@rollup/plugin-commonjs')(),
-    require('@rollup/plugin-babel').babel({
-      babelHelpers: 'bundled',
-      presets: ['@babel/preset-env']
-    })
-  ]
-
-  if (!argv.fast) plugins.push(
-    require('rollup-plugin-uglify').uglify({})
-  )
-
   return rollup.rollup({
     input: 'src/js/theme.js',
-    plugins
+    plugins: [
+      require('rollup-plugin-terser').terser(),
+      require('@rollup/plugin-node-resolve').nodeResolve(),
+      require('@rollup/plugin-commonjs')(),
+      require('@rollup/plugin-babel').babel({
+        babelHelpers: 'bundled',
+        presets: ['@babel/preset-env']
+      }),
+    ]
   }).then(result => result.write({
     file: 'public/assets/theme.min.js',
     format: 'iife',

@@ -85,3 +85,6 @@ node_modules/
 
 # Browsersync
 .proxy
+
+# Intellij
+.idea
