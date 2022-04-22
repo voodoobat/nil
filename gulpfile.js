@@ -92,6 +92,23 @@ const js = () => {
 
 exports.js = js
 
+// tasks: svg
+// create svg sprite
+
+const sprite = require('gulp-svg-sprite')
+const svgo = require('gulp-svgo')
+
+const svg = () => {
+  return gulp
+    .src('src/svg/*.svg')
+    .pipe(plumber())
+    .pipe(svgo({ removeAttrs: { attrs: '(stroke|fill)' } }))
+    .pipe(sprite({ mode: { symbol: { dest: '.', sprite: 'icons.svg' } } }))
+    .pipe(gulp.dest('public/assets'))
+}
+
+exports.svg = svg
+
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
@@ -110,9 +127,9 @@ if (argv.s) {
 
   server.create().init({
     open: argv.open,
+    files: ['public/**/*.{html,css,js,svg}'],
     server: proxy ? false : 'public',
     watch: argv.w,
     proxy,
-    files: ['public/**/*.css', 'public/**/*.html', 'public/**/*.js'],
   })
 }
