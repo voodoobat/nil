@@ -33,7 +33,7 @@ const templates = () => {
       '!src/templates/layout/**',
     ])
     .pipe(plumber())
-    .pipe(twig())
+    .pipe(twig({ data: require('./mock') }))
     .pipe(beautify.html())
     .pipe(gulp.dest('public'))
 }
