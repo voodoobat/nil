@@ -93,16 +93,16 @@ exports.js = js
 const sprite = require('gulp-svg-sprite')
 const svgo = require('gulp-svgo')
 
-const svg = () => {
+const icons = () => {
   return gulp
-    .src('src/svg/*.svg')
+    .src('src/icons/*.svg')
     .pipe(plumber())
     .pipe(svgo({ removeAttrs: { attrs: '(stroke|fill)' } }))
     .pipe(sprite({ mode: { symbol: { dest: '.', sprite: 'icons.svg' } } }))
     .pipe(gulp.dest('public/assets'))
 }
 
-exports.svg = svg
+exports.icons = icons
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
