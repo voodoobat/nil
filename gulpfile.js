@@ -17,7 +17,7 @@ require('dotenv').config({
   path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
 })
 
-const { BUILD_MODE, BROWSER_SYNC_PROXY } = process.env
+const { BUILD_MODE, BROWSER_SYNC_PROXY, DIST_DIR } = process.env
 
 // tasks: templates
 // compile twig templates
@@ -35,7 +35,7 @@ const templates = () => {
     .pipe(plumber())
     .pipe(twig({ data: require('./mock') }))
     .pipe(beautify.html())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest(DIST_DIR))
 }
 
 exports.templates = templates
@@ -53,16 +53,11 @@ const scss = () => {
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(sass({ includePaths: ['./node_modules'] }))
-    .pipe(
-      postcss([
-        require('postcss-assets')({ basePath: 'public/assets/images' }),
-        require('autoprefixer')(),
-      ])
-    )
+    .pipe(postcss([require('autoprefixer')()]))
     .pipe(csso())
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
-    .pipe(gulp.dest('public/assets'))
+    .pipe(gulp.dest(`${DIST_DIR}/assets`))
 }
 
 exports.scss = scss
@@ -71,7 +66,10 @@ exports.scss = scss
 // transforms es6 to es5 and minify js
 
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.config')(BUILD_MODE)
+const webpackConfig = require('./webpack.config')({
+  mode: BUILD_MODE,
+  dist: DIST_DIR,
+})
 
 const js = () => {
   return new Promise((resolve, reject) => {
@@ -99,7 +97,7 @@ const icons = () => {
     .pipe(plumber())
     .pipe(svgo({ removeAttrs: { attrs: '(stroke|fill)' } }))
     .pipe(sprite({ mode: { symbol: { dest: '.', sprite: 'icons.svg' } } }))
-    .pipe(gulp.dest('public/assets'))
+    .pipe(gulp.dest(`${DIST_DIR}/assets`))
 }
 
 exports.icons = icons
@@ -125,17 +123,27 @@ const images = () => {
         },
       }))
     )
-    .pipe(gulp.dest('public/assets'))
+    .pipe(gulp.dest(`${DIST_DIR}/assets`))
 }
 
 exports.images = images
+
+// tasks: public
+// copies static public into dist directory
+
+const assets = () => {
+  return gulp.src('public/**/*').pipe(gulp.dest(DIST_DIR))
+}
+
+exports.assets = assets
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
 if (argv.w) {
   argv._.forEach((task) => {
-    gulp.watch(`src/${task}/**/*.*`, exports[task])
+    const files = task === 'assets' ? 'public/**/*' : `src/${task}/**/*`
+    gulp.watch(files, exports[task])
   })
 }
 
@@ -149,8 +157,8 @@ if (argv.s) {
 
   server.create().init({
     open: argv.open,
-    files: ['public/**/*.*'],
-    server: proxy ? false : 'public',
+    files: [`${DIST_DIR}/**/*.*`],
+    server: proxy ? false : DIST_DIR,
     watch: argv.w,
     proxy,
   })

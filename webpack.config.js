@@ -1,7 +1,7 @@
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 
-module.exports = (mode) => ({
+module.exports = ({ mode, dist }) => ({
   mode: mode || 'production',
   entry: {
     theme: './src/js/theme.js',
@@ -34,7 +34,7 @@ module.exports = (mode) => ({
     },
   },
   output: {
-    path: path.resolve(__dirname, 'public/assets'),
+    path: path.resolve(__dirname, `${dist}/assets`),
     filename: '[name].min.js',
   },
 })

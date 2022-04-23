@@ -28,7 +28,7 @@ Icon
 # Thumbnails
 ._*
 
-# Files that might appear in the root of a volume
+# Files that might appear in the public of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -87,3 +87,6 @@ node_modules/
 .env
 .env.*
 !.env.dist
+
+# dist
+dist
