@@ -22,7 +22,9 @@ const { BUILD_MODE, BROWSER_SYNC_PROXY, DIST_DIR } = process.env
 // tasks: templates
 // compile twig templates
 
+const { existsSync, readFileSync } = require('fs')
 const twig = require('gulp-twig')
+const data = require('gulp-data')
 const beautify = require('gulp-beautify')
 
 const templates = () => {
@@ -33,7 +35,17 @@ const templates = () => {
       '!src/templates/layout/**',
     ])
     .pipe(plumber())
-    .pipe(twig({ data: require('./mock') }))
+    .pipe(
+      data(({ path }) => {
+        const mock = path
+          .replace('templates', 'templates/mock')
+          .replace('.twig', '.json')
+        if (existsSync(mock)) {
+          return JSON.parse(readFileSync(mock).toString())
+        }
+      })
+    )
+    .pipe(twig())
     .pipe(beautify.html())
     .pipe(gulp.dest(DIST_DIR))
 }
@@ -131,19 +143,19 @@ exports.images = images
 // tasks: public
 // copies static public into dist directory
 
-const assets = () => {
+const copy = () => {
   return gulp.src('public/**/*').pipe(gulp.dest(DIST_DIR))
 }
 
-exports.assets = assets
+exports.copy = copy
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
 if (argv.w) {
   argv._.forEach((task) => {
-    const files = task === 'assets' ? 'public/**/*' : `src/${task}/**/*`
-    gulp.watch(files, exports[task])
+    if (task === 'copy') return gulp.watch('public/**/*', exports[task])
+    gulp.watch([`src/${task}/**/*`], exports[task])
   })
 }
 
