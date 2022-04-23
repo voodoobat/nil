@@ -75,7 +75,7 @@ const scss = () => {
 exports.scss = scss
 
 // tasks: js
-// transforms es6 to es5 and minify js
+// compiles js using webpack
 
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')({
@@ -140,8 +140,8 @@ const images = () => {
 
 exports.images = images
 
-// tasks: public
-// copies static public into dist directory
+// tasks: copy
+// copies static assets into dist directory
 
 const copy = () => {
   return gulp.src('public/**/*').pipe(gulp.dest(DIST_DIR))
