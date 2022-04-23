@@ -21,7 +21,7 @@ module.exports = (mode) => ({
     ],
   },
   optimization: {
-    minimize: mode === 'production',
+    minimize: mode ? mode === 'production' : true,
     minimizer: [new TerserPlugin({ extractComments: false })],
     splitChunks: {
       cacheGroups: {

@@ -104,6 +104,32 @@ const icons = () => {
 
 exports.icons = icons
 
+// tasks: images
+// compress images with squoosh
+
+const { extname } = require('path')
+const squoosh = require('gulp-squoosh')
+
+const images = () => {
+  const options = { quality: 75 }
+  return gulp
+    .src('src/images/**/*.{png,jpg}')
+    .pipe(plumber())
+    .pipe(
+      squoosh(({ filePath }) => ({
+        encodeOptions: {
+          webp: options,
+          ...(extname(filePath) === '.png'
+            ? { oxipng: options }
+            : { mozjpeg: options }),
+        },
+      }))
+    )
+    .pipe(gulp.dest('public/assets'))
+}
+
+exports.images = images
+
 // watch: gulp -w
 // watches for file changes and runs specific tasks
 
