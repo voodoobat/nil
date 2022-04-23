@@ -17,6 +17,8 @@ require('dotenv').config({
   path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
 })
 
+const { BUILD_MODE, BROWSER_SYNC_PROXY } = process.env
+
 // tasks: templates
 // compile twig templates
 
@@ -69,10 +71,11 @@ exports.scss = scss
 // transforms es6 to es5 and minify js
 
 const webpack = require('webpack')
+const webpackConfig = require('./webpack.config')(BUILD_MODE)
 
 const js = () => {
   return new Promise((resolve, reject) => {
-    webpack(require('./webpack.config')(process.env.MODE), (e, stats) => {
+    webpack(webpackConfig, (e, stats) => {
       if (e) return reject(e)
       if (stats.hasErrors()) {
         return reject(new Error(stats.compilation.errors.join('\n')))
@@ -116,7 +119,7 @@ if (argv.w) {
 const server = require('browser-sync')
 
 if (argv.s) {
-  const proxy = process.env.BROWSERSYNC_PROXY
+  const proxy = BROWSER_SYNC_PROXY
 
   server.create().init({
     open: argv.open,

@@ -2,6 +2,7 @@ const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (mode) => ({
+  mode: mode || 'production',
   entry: {
     theme: './src/js/theme.js',
   },
