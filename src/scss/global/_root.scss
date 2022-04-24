@@ -1,0 +1,7 @@
+:root {
+  --MQ_ZERO: #{remove-unit($MQ_ZERO)};
+  --MQ_MOBILE: #{remove-unit($MQ_MOBILE)};
+  --MQ_TABLET: #{remove-unit($MQ_TABLET)};
+  --MQ_LAPTOP: #{remove-unit($MQ_LAPTOP)};
+  --MQ_DESKTOP: #{remove-unit($MQ_DESKTOP)};
+}
