@@ -30,6 +30,11 @@
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "sass": "^1.50.1",
+    "stylelint": "^14.7.1",
+    "stylelint-config-property-sort-order-smacss": "^9.0.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.2.0",
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.72.0",
     "yargs": "^17.4.1"
@@ -89,6 +94,19 @@
     "**/*.min.js",
     "node_modules/*"
   ],
+  "stylelint": {
+    "plugins": [
+      "stylelint-scss",
+      "stylelint-order"
+    ],
+    "extends": [
+      "stylelint-config-recommended-scss",
+      "stylelint-config-property-sort-order-smacss"
+    ],
+    "rules": {
+      "scss/no-global-function-names": "off"
+    }
+  },
   "browserslist": [
     "last 2 versions",
     "> 1%"
