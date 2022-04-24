@@ -44,7 +44,10 @@ const templates = () => {
           .replace('templates', 'templates/mock')
           .replace('.twig', '.json')
         if (existsSync(mock)) {
-          return JSON.parse(readFileSync(mock).toString())
+          return {
+            base: process.env.BASE_URL,
+            ...JSON.parse(readFileSync(mock).toString()),
+          }
         }
       })
     )
