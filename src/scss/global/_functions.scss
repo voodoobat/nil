@@ -2,7 +2,6 @@
 
 @function remove-unit($value) {
   @if type-of($value) == number and not unitless($value) {
-    $f: 1 / 10;
     @return math.div($value, ($value * 0 + 1));
   }
 

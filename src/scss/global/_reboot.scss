@@ -73,14 +73,15 @@ label {
 }
 
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  cursor: pointer;
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   background-color: transparent;
+  cursor: pointer;
 }
 
-input[type="number"] {
+input[type='number'] {
+  -moz-appearance: textfield;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     margin: 0;
@@ -111,11 +112,7 @@ textarea {
   }
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-input[type="search"] {
+input[type='search'] {
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,
   &::-webkit-search-results-button,
