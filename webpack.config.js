@@ -4,7 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   mode: process.env.BUILD_MODE,
   entry: {
-    theme: './src/js/theme.js',
+    global: './src/js/global.js',
   },
   module: {
     rules: [

@@ -1,0 +1,23 @@
+html {
+  font-size: 10px;
+
+  @include media($MQ_ZERO $MQ_MOBILE) {
+    @include responsive-type(10px, 12px, $MQ_ZERO, $MQ_MOBILE);
+  }
+
+  @include media($MQ_MOBILE $MQ_TABLET) {
+    @include responsive-type(9px, 12px, $MQ_MOBILE, $MQ_TABLET);
+  }
+
+  @include media($MQ_TABLET $MQ_LAPTOP) {
+    @include responsive-type(9px, 10px, $MQ_TABLET, $MQ_LAPTOP);
+  }
+
+  @include media($MQ_LAPTOP $MQ_DESKTOP) {
+    @include responsive-type(10px, 13px, $MQ_LAPTOP, $MQ_DESKTOP);
+  }
+
+  @include media($MQ_DESKTOP, min) {
+    font-size: 13px;
+  }
+}
