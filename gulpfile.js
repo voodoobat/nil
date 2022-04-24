@@ -4,6 +4,7 @@
 // common packages
 // load packages and assign them semantic names
 
+const { existsSync, readFileSync } = require('fs')
 const gulp = require('gulp')
 const plumber = require('gulp-plumber')
 const rename = require('gulp-rename')
@@ -14,15 +15,17 @@ const argv = require('yargs').argv
 // load env config file
 
 require('dotenv').config({
-  path: argv.env && argv.env.length ? `./.env.${argv.env}` : './.env',
+  path:
+    argv.env && existsSync(`./.env.${argv.env}`)
+      ? `./.env.${argv.env}`
+      : './.env',
 })
 
-const { BUILD_MODE, BROWSER_SYNC_PROXY, DIST_DIR } = process.env
+const { BROWSER_SYNC_PROXY, DIST_DIR } = process.env
 
 // tasks: templates
 // compile twig templates
 
-const { existsSync, readFileSync } = require('fs')
 const twig = require('gulp-twig')
 const data = require('gulp-data')
 const beautify = require('gulp-beautify')
@@ -78,14 +81,10 @@ exports.scss = scss
 // compiles js using webpack
 
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.config')({
-  mode: BUILD_MODE,
-  dist: DIST_DIR,
-})
 
 const js = () => {
   return new Promise((resolve, reject) => {
-    webpack(webpackConfig, (e, stats) => {
+    webpack(require('./webpack.config'), (e, stats) => {
       if (e) return reject(e)
       if (stats.hasErrors()) {
         return reject(new Error(stats.compilation.errors.join('\n')))

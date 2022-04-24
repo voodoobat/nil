@@ -2,8 +2,8 @@
   "name": "nil",
   "private": true,
   "scripts": {
-    "dev": "gulp templates scss js icons images copy -ws",
-    "build": "rimraf ./dist && gulp templates scss icons images copy js --env production"
+    "dev": "gulp templates scss js icons images copy -ws --env development",
+    "build": "gulp templates scss icons images copy js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
