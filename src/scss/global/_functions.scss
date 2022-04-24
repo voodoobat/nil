@@ -1,6 +1,9 @@
+@use 'sass:math';
+
 @function remove-unit($value) {
   @if type-of($value) == number and not unitless($value) {
-    @return $value / ($value * 0 + 1);
+    $f: 1 / 10;
+    @return math.div($value, ($value * 0 + 1));
   }
 
   @return $value;
