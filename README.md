@@ -2,9 +2,9 @@
 
 ## basic usage:
 
-`npm run build` - runs all tasks
+`pnpm run build` - runs all tasks
 
-`npm run dev` - runs all tasks with file watchers and browser-sync server 
+`pnpm run dev` - runs all tasks with file watchers and browser-sync server 
 
 ## deploy to heroku:
 
