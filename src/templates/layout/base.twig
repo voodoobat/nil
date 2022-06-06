@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="">
+<html lang="en_US">
   <head>
-    <base href="{{base}}">
+    <base href="{{ env.base }}">
     <meta charset="utf-8">
-    {% block title %}{% endblock %}
+    <title>{{ page.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include 'favicons.twig' %}
     <link rel="stylesheet" href="assets/global.min.css">

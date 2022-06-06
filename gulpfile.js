@@ -40,14 +40,20 @@ const templates = () => {
     .pipe(plumber())
     .pipe(
       data(({ path }) => {
-        const mock = path
-          .replace('templates', 'templates/mock')
-          .replace('.twig', '.json')
-        if (existsSync(mock)) {
-          return {
-            base: process.env.BASE_URL,
-            ...JSON.parse(readFileSync(mock).toString()),
-          }
+        const getData = (path) => JSON.parse(readFileSync(path).toString())
+        const globalPath = 'src/templates/mock/global.json'
+        const pagePath = [
+          ['templates', 'templates/mock'],
+          ['.twig', '.json'],
+        ].reduce((str, args) => (str = str.replace(...args)), path)
+
+        const global = existsSync(globalPath) ? getData(globalPath) : {}
+        const page = existsSync(pagePath) ? getData(pagePath) : {}
+
+        return {
+          env: { base: process.env.BASE_URL },
+          global,
+          page,
         }
       })
     )
