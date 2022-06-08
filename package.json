@@ -44,6 +44,11 @@
   "resolutions": {
     "graceful-fs": "^4.2.9"
   },
+  "babel": {
+    "presets": [
+      ["@babel/preset-env", {}]
+    ]
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
