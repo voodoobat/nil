@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 @mixin font($size-values: null, $style-values: null, $font-family: null) {
   $size-rules: font-size line-height letter-spacing;
   $style-rules: font-weight font-style;
@@ -7,11 +9,11 @@
   }
 
   @for $j from 1 through length($size-values) {
-    #{nth($size-rules, $j)}: nth($size-values, $j);
+    #{list.nth($size-rules, $j)}: list.nth($size-values, $j);
   }
 
   @for $j from 1 through length($style-values) {
-    #{nth($style-rules, $j)}: nth($style-values, $j);
+    #{list.nth($style-rules, $j)}: list.nth($style-values, $j);
   }
 }
 
@@ -49,8 +51,8 @@
   }
 
   @if type-of($size) == list {
-    width: nth($size, 1);
-    height: nth($size, 2);
+    width: list.nth($size, 1);
+    height: list.nth($size, 2);
   }
 }
 
@@ -66,7 +68,7 @@
   }
 
   @for $j from 1 through length($coords) {
-    #{nth($rules, $j)}: nth($coords, $j);
+    #{nth($rules, $j)}: list.nth($coords, $j);
   }
 }
 
