@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:list';
 
 @function remove-unit($value) {
   @if type-of($value) == number and not unitless($value) {
@@ -6,4 +7,19 @@
   }
 
   @return $value;
+}
+
+@function calc-column-size($size, $gap, $is-push: false) {
+  $resolution: math.div(list.nth($size, 2), list.nth($size, 1));
+  $gap-size: $gap * math.div((list.nth($size, 2) - 1), list.nth($size, 2));
+
+  @if $resolution == 1 {
+    @return 100%;
+  }
+
+  @if $is-push {
+    $gap-size: $gap-size - $gap;
+  }
+
+  @return calc(100% / #{$resolution} - #{$gap-size + 0.0025rem});
 }
