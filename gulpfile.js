@@ -69,17 +69,17 @@ exports.templates = templates
 
 const sass = require('gulp-sass')(require('sass'))
 const postcss = require('gulp-postcss')
-const stylelint = require('gulp-stylelint')
 const csso = require('gulp-csso')
 
 const scss = () => {
   return gulp
     .src(['src/scss/*.scss'])
     .pipe(plumber())
-    .pipe(stylelint({ reporters: [{ formatter: 'string', console: true }] }))
     .pipe(maps.init())
+    .pipe(sass.sync().on('error', sass.logError))
     .pipe(sass({ includePaths: ['./node_modules'] }))
     .pipe(postcss([require('autoprefixer')()]))
+    .pipe(plumber.stop())
     .pipe(csso())
     .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
