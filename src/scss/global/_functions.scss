@@ -10,10 +10,10 @@
 }
 
 @function calc-column-size($size, $gap, $is-push: false) {
-  $resolution: math.div(list.nth($size, 2), list.nth($size, 1));
+  $ratio: math.div(list.nth($size, 2), list.nth($size, 1));
   $gap-size: $gap * math.div((list.nth($size, 2) - 1), list.nth($size, 2));
 
-  @if $resolution == 1 {
+  @if $ratio == 1 {
     @return 100%;
   }
 
@@ -21,5 +21,5 @@
     $gap-size: $gap-size - $gap;
   }
 
-  @return calc(100% / #{$resolution} - #{$gap-size + 0.0025rem});
+  @return calc(100% / #{$ratio} - #{$gap-size + 0.0025rem});
 }

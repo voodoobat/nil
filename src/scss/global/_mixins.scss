@@ -72,15 +72,14 @@
   }
 }
 
-@mixin container($gap-x: $GRID_GAP, $gap-y: $gap-x) {
+@mixin flex-container($gap-x: $GRID_GAP, $gap-y: $gap-x) {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
   column-gap: $gap-x;
   row-gap: $gap-y;
 }
 
-@mixin column($size: 1 1, $push: null, $gap: $GRID_GAP) {
+@mixin flex-column($size: 1 1, $push: null, $gap: $GRID_GAP) {
   @if type-of($size) == list {
     min-width: calc-column-size($size, $gap);
   }
