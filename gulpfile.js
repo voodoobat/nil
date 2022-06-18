@@ -7,9 +7,7 @@
 const { existsSync, readFileSync } = require('fs')
 const gulp = require('gulp')
 const plumber = require('gulp-plumber')
-const rename = require('gulp-rename')
 const maps = require('gulp-sourcemaps')
-const rev = require('gulp-rev')
 const argv = require('yargs').argv
 
 // dotenv
@@ -52,13 +50,34 @@ const templates = () => {
         const page = existsSync(pagePath) ? getData(pagePath) : {}
 
         return {
-          env: { base: process.env.BASE_URL },
+          env: {
+            base: process.env.BASE_URL,
+            build_mode: process.env.BUILD_MODE,
+          },
           global,
           page,
         }
       })
     )
-    .pipe(twig())
+    .pipe(
+      twig({
+        functions: [
+          {
+            name: 'asset',
+            func: (key) => {
+              if (process.env.BUILD_MODE === 'production') {
+                const path = `./${DIST_DIR}/assets/assets.json`
+                if (existsSync(path)) {
+                  return require(path)[key] ? require(path)[key] : key
+                }
+              }
+
+              return key
+            },
+          },
+        ],
+      })
+    )
     .pipe(beautify.html())
     .pipe(gulp.dest(DIST_DIR))
 }
@@ -81,11 +100,7 @@ const scss = () => {
     .pipe(sass({ includePaths: ['./node_modules'] }))
     .pipe(postcss([require('autoprefixer')()]))
     .pipe(csso())
-    .pipe(rename({ suffix: '.min' }))
     .pipe(maps.write('.'))
-    .pipe(rev())
-    .pipe(gulp.dest(`${DIST_DIR}/assets`))
-    .pipe(rev.manifest({ path: './css.json' }))
     .pipe(gulp.dest(`${DIST_DIR}/assets`))
 }
 
@@ -122,9 +137,6 @@ const icons = () => {
     .pipe(plumber())
     .pipe(svgo({ removeAttrs: { attrs: '(stroke|fill)' } }))
     .pipe(sprite({ mode: { symbol: { dest: '.', sprite: 'icons.svg' } } }))
-    .pipe(rev())
-    .pipe(gulp.dest(`${DIST_DIR}/assets`))
-    .pipe(rev.manifest({ path: './svg.json' }))
     .pipe(gulp.dest(`${DIST_DIR}/assets`))
 }
 
@@ -156,27 +168,6 @@ const images = () => {
 
 exports.images = images
 
-// tasks: clean
-// clean dist folder
-
-const del = require('del')
-
-const clean = () => {
-  const exclude = (data) => {
-    return Object.keys(data).map((key) => `!${DIST_DIR}/assets/${data[key]}`)
-  }
-
-  const src = [
-    `${DIST_DIR}/assets/**/*.{css,svg,map}`,
-    ...exclude(require(`./${DIST_DIR}/assets/css.json`)),
-    ...exclude(require(`./${DIST_DIR}/assets/svg.json`)),
-  ]
-
-  del.sync(src)
-}
-
-exports.clean = clean
-
 // tasks: copy
 // copies static assets into dist directory
 
@@ -185,6 +176,24 @@ const copy = () => {
 }
 
 exports.copy = copy
+
+// tasks: production
+// production postbuild
+
+const rev = require('gulp-rev')
+const del = require('rev-del')
+
+const production = () => {
+  return gulp
+    .src(`${DIST_DIR}/assets/**/*.{css,js,svg,map}`)
+    .pipe(gulp.dest(`${DIST_DIR}/assets/`))
+    .pipe(rev.manifest({ path: './assets.json' }))
+    .pipe(del({ dest: DIST_DIR }))
+    .on('end', templates)
+    .pipe(gulp.dest(`${DIST_DIR}/assets/`))
+}
+
+exports.production = production
 
 // watch: gulp -w
 // watches for file changes and runs specific tasks
