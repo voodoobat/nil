@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "gulp templates scss js icons images copy -ws --env development",
-    "build": "gulp scss icons images copy js && gulp production && gulp templates"
+    "build": "rm -rf dist && gulp scss icons images copy js && gulp production && gulp templates"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -30,7 +30,6 @@
     "gulp-twig": "^1.2.0",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
-    "rev-del": "^2.0.0",
     "sass": "^1.50.1",
     "stylelint": "^14.7.1",
     "stylelint-config-property-sort-order-smacss": "^9.0.0",

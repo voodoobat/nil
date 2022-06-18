@@ -93,7 +93,7 @@ const csso = require('gulp-csso')
 
 const scss = () => {
   return gulp
-    .src(['src/scss/*.scss'])
+    .src(['src/scss/**/*.scss'])
     .pipe(plumber())
     .pipe(maps.init())
     .pipe(sass.sync().on('error', sass.logError))
@@ -181,16 +181,15 @@ exports.copy = copy
 // production postbuild
 
 const rev = require('gulp-rev')
-const del = require('rev-del')
 
 const production = () => {
   return gulp
-    .src(`${DIST_DIR}/assets/**/*.{css,js,svg,map}`)
+    .src(`${DIST_DIR}/assets/**/*.{css,js,svg}`)
+    .pipe(rev())
     .pipe(gulp.dest(`${DIST_DIR}/assets/`))
     .pipe(rev.manifest({ path: './assets.json' }))
-    .pipe(del({ dest: DIST_DIR }))
-    .on('end', templates)
     .pipe(gulp.dest(`${DIST_DIR}/assets/`))
+    .on('end', templates)
 }
 
 exports.production = production
