@@ -82,6 +82,7 @@
 @mixin flex-column($size: 1 1, $push: null, $gap: $GRID_GAP) {
   @if type-of($size) == list {
     min-width: calc-column-size($size, $gap);
+    max-width: calc-column-size($size, $gap);
   }
 
   @if type-of($push) == list {
